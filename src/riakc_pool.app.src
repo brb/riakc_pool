@@ -1,0 +1,21 @@
+{application, riakc_pool, [
+    {description, "Riak client process pool"},
+    {vsn, "1.3.1"},
+    {modules, [riakcp_worker]},
+    {registered, []},
+    {applications, [kernel, stdlib]},
+    {mod, {riakcp_app, []}},
+    {env, [
+        {pool, [
+            {size, 3},
+            {max_overflow, 5}
+        ]},
+        {riakc, [
+            {address, "127.0.0.1"},
+            {port, 8087},
+            {options, [
+                {auto_reconnect, true}
+            ]}
+        ]}
+    ]}
+]}.
