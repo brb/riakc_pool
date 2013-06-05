@@ -4,10 +4,8 @@
 -module(riakcp).
 -author('Martynas Pumputis <martynasp@gmail.com>').
 
-%% Application API
--export([start/0, stop/0]).
 %% API
--export([exec/2]).
+-export([start/0, stop/0, exec/2]).
 
 -include("riakcp.hrl").
 
@@ -28,14 +26,6 @@ exec(FunctionName, Args) ->
             erlang:apply(riakc_pb_socket, FunctionName, [Worker|Args])
         end).
 
-%%%===========================================================================
-%%% Application API
-%%%===========================================================================
+start() -> application:start(?APP).
 
-start() ->
-    application:start(poolboy),
-    application:start(?APP).
-
-stop() ->
-    application:stop(?APP),
-    application:stop(poolboy).
+stop() -> application:stop(?APP).
