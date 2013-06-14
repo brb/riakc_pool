@@ -23,15 +23,18 @@ start_link() ->
 %%%============================================================================
 
 init([]) ->
-    PoolEnv = get_env(pool, []),
-    PoolSize = proplists:get_value(size, PoolEnv, ?POOL_SIZE),
-    PoolMaxOverflow = proplists:get_value(max_overflow, PoolEnv,
-                                          ?POOL_MAX_OVERFLOW),
+    PoolSize = get_env(pool_size, ?POOL_SIZE),
+    PoolMaxOverflow = get_env(pool_max_overflow, ?POOL_MAX_OVERFLOW),
     PoolArgs = [{name, {local, ?POOL_NAME}},
                 {worker_module, riakcp_worker},
                 {size, PoolSize}, {max_overflow, PoolMaxOverflow}],
-    RiakCArgs = get_env(riakc, []),
-    PoolSpec = poolboy:child_spec(?POOL_NAME, PoolArgs, RiakCArgs),
+
+    RiakAddr = get_env(riak_address, ?RIAK_ADDR),
+    RiakPort = get_env(riak_port, ?RIAK_PORT),
+    RiakOpts = get_env(riak_options, []),
+    RiakArgs = {RiakAddr, RiakPort, RiakOpts},
+
+    PoolSpec = poolboy:child_spec(?POOL_NAME, PoolArgs, RiakArgs),
 
     {ok, {{one_for_one, 1, 10}, [PoolSpec]}}.
 

@@ -9,18 +9,10 @@
 
 -export([start_link/1]).
 
--type arg() :: {address, riakc_pb_socket:address()} |
-               {port, riakc_pb_socket:portnum()} |
-               {options, list()}.
--type args() :: [arg()].
-
 %%%============================================================================
 
 %% @doc Start riakc_pb_socket process.
--spec start_link(args()) -> {ok, pid()} | {error, term()}.
-start_link(Args) ->
-    Addr = proplists:get_value(address, Args, ?RIAK_ADDR),
-    Port = proplists:get_value(port, Args, ?RIAK_PORT),
-    Opts = proplists:get_value(options, Args, []),
-
+-spec start_link({riakc_pb_socket:address(), riakc_pb_socket:portnum(),
+                  list()}) -> {ok, pid()} | {error, term()}.
+start_link({Addr, Port, Opts}) ->
     riakc_pb_socket:start_link(Addr, Port, Opts).

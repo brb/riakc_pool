@@ -6,16 +6,12 @@
     {applications, [kernel, stdlib]},
     {mod, {riakcp_app, []}},
     {env, [
-        {pool, [
-            {size, 3},
-            {max_overflow, 5}
-        ]},
-        {riakc, [
-            {address, "127.0.0.1"},
-            {port, 8087},
-            {options, [
-                {auto_reconnect, true}
-            ]}
+        {pool_size, 3},
+        {pool_max_overflow, 5},
+        {riak_address, "127.0.0.1"},
+        {riak_port, 8087},
+        {riak_options, [
+            {auto_reconnect, true}
         ]}
     ]}
 ]}.
