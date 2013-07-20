@@ -3,6 +3,8 @@
 (Really) simple Erlang Riak client process pool based on
 [riak-erlang-client][2] and [poolboy][3].
 
+[![Build Status](https://travis-ci.org/brb/riakc_pool.png)](https://travis-ci.org/brb/riakc_pool)
+
 ## Dependencies
 
 * Erlang (>= R15B01)
