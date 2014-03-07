@@ -13,12 +13,15 @@
 
 %%%============================================================================
 
--type portnum() :: non_neg_integer(). %% The TCP port number of the Riak node's Protocol Buffers interface
--type address() :: string() | atom() | inet:ip_address(). %% The TCP/IP host name or address of the Riak node
+%% The TCP port number of the Riak node's Protocol Buffers interface
+-type portnum() :: non_neg_integer().
+%% The TCP/IP host name or address of the Riak node
+-type address() :: string() | atom() | inet:ip_address().
 
 %% @doc Start riakc_pb_socket process.
 -spec start_link([{addr, address()} | {port, portnum()} | {opts, list()}] |
-                 {address(), portnum(), list()}) -> {ok, pid()} | {error, term()}.
+                 {address(), portnum(), list()})
+                        -> {ok, pid()} | {error, term()}.
 start_link(Args) when is_list(Args) ->
     start_link({proplists:get_value(addr, Args),
                 proplists:get_value(port, Args),
