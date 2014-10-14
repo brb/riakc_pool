@@ -19,7 +19,10 @@ riakcp_test_() ->
             ok = application:stop(?APP)
         end,
         [
-            {"put/get", fun test_put_and_get/0}
+            {"put/get",
+                fun test_put_and_get/0},
+            {"poolboy timeout",
+                fun test_poolboy_timeout/0}
         ]
     }.
 
@@ -28,4 +31,10 @@ test_put_and_get() ->
 
     Object = riakc_obj:new(?BUCKET, ?KEY, <<"qux">>),
     ?assertMatch(ok, riakcp:exec(put, [Object])),
+
+    % Check whether default pool worker value is taken
+    application:unset_env(?APP, pool_worker_timeout),
     ?assertMatch({ok, _}, riakcp:exec(get, [?BUCKET, ?KEY])).
+
+test_poolboy_timeout() ->
+    ?assertExit({timeout, _}, riakcp:exec(get, [?BUCKET, ?KEY], 0)).

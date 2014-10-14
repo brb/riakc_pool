@@ -18,14 +18,14 @@
 
 ```erlang
 [
-  {pool, [
-    {size, 10},
-    {max_overflow, 20}
-  ]},
   {riakc, [
-    {address, "127.0.0.1"},
-    {port, 8087},
-    {options, []} % riakc_pb_socket options
+    {riak_address, "127.0.0.1"},
+    {riak_port, 8087},
+    {riak_options, []} % riakc_pb_socket options
+
+    {pool_size, 10},
+    {pool_max_overflow, 20},
+    {pool_worker_timeout, 5000}
   ]}
 ]
 ```

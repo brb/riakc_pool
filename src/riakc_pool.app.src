@@ -8,6 +8,7 @@
     {env, [
         {pool_size, 3},
         {pool_max_overflow, 5},
+        {pool_worker_timeout, 5000},
         {riak_address, "127.0.0.1"},
         {riak_port, 8087},
         {riak_options, [
